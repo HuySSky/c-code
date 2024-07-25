@@ -120,7 +120,7 @@ void fallenChildSort(int *l, int *r)
         }
     }
 
-    sort(b, pb);
+    fallenChildSort(b, pb);
 
     int *p1 = l + (endOfA -1), *p2 = r - 1, *p3 = pb - 1;
 
@@ -157,123 +157,6 @@ void fallenChildSort(int *l, int *r)
     return;
 }
 
-/*void fallenChildSort(vector<int> &a)
-{
-    /*cout<<"first : "<<endl;
-    for(auto &fe: a)
-    {
-        cout<<fe<<' ';
-    }
-    cout<<endl;
-
-    if(a.size() <= 1)
-    {
-        return;
-    }
-
-    vector<int> b;
-
-    int endOfA = a.size() -1;
-
-    for(int r =0 , i = 1; i < a.size(); i++)
-    {
-        if(a[r] > a[i])
-        {
-            b.pb(a[i]);
-            a[i] = NULL;
-
-            endOfA--;
-        }
-        else
-        {
-            r = i;
-        }
-    }
-
-    if(b.size() == 0)
-    {
-        return;
-    }
-
-    /*cout<<"second : "<<endl;
-    for(auto &fe: a)
-    {
-        cout<<fe<<' ';
-    }
-    cout<<endl;*
-
-    for(int l=0, r=0;l<=endOfA;)
-    {
-        if(a[l] == NULL)
-        {
-            if(a[r] != NULL)
-            {
-                a[l] = a[r];
-                a[r] = NULL;
-                l++, r++;
-            }
-            else
-            {
-                r++;
-            }
-        }
-        else
-        {
-            l++, r++;
-        }
-    }
-
-    /*cout<<"third : "<<endl;
-    for(auto &fe: a)
-    {
-        cout<<fe<<' ';
-    }
-    cout<<endl;*
-
-
-    sort(b);
-
-    int p1 = endOfA, p2 = a.size() -1, p3 = b.size() -1;
-
-    for(int i=1;i<=a.size();i++)
-    {
-        if(p1 == -1)
-        {
-            a[p2] = b[p3];;
-            p2--;
-            p3--;
-        }
-        else if(p3 == -1)
-        {
-            a[p2] = a[p1];
-            p2--;
-            p1--;
-        }
-        else if(a[p1] < b[p3])
-        {
-            a[p2] = b[p3];
-            p2--;
-            p3--;
-        }
-        else if (a[p1] >= b[p3])
-        {
-            a[p2] = a[p1];
-            p2--;
-            p1--;
-        }
-    }
-
-    /*cout<<"fourth : "<<endl;
-    for(auto &fe: a)
-    {
-        cout<<fe<<' ';
-    }
-    cout<<endl;*
-
-
-    return;
-}*/
-
 int A[1000001];
 
 //int A[] = {-1, -2, 3, 15, -6, 4, 1, 2, 3, 49, -87, 4, 13};
@@ -289,6 +172,11 @@ int main()
     {
         cin>>A[i];
     }
+
+    /*sort(A, A+n, [](int a, int b)
+         {
+             return a >= b;
+         });*/
 
     //int n = sizeof(A) / sizeof(A[0]);
 
