@@ -63,8 +63,109 @@ void openFile()
     }
 }
 
-void sort(vector<int> &a)
+void fallenChildSort(int *l, int *r)
 {
+    if(r - l <= 1)
+    {
+        return;
+    }
+
+    int size = r - l;
+
+    int *b = new int[size];
+    int *pb = b;
+
+    int endOfA = size;
+
+    for(int *pr =l , *i = l+1; i < r; i++)
+    {
+        if(*pr > *i)
+        {
+            *pb = *i;
+            pb++;
+
+            *i = -2e9;
+
+            endOfA--;
+        }
+        else
+        {
+            pr = i;
+        }
+    }
+
+    if(pb - b == 0)
+    {
+        return;
+    }
+
+    for(int *pl= l, *pr = l;pl< l + endOfA;)
+    {
+        if(*pl == -2e9)
+        {
+            if(*pr != -2e9)
+            {
+                *pl = *pr;
+                *pr = -2e9;
+                pl++, pr++;
+            }
+            else
+            {
+               pr++;
+            }
+        }
+        else
+        {
+            pl++, pr++;
+        }
+    }
+
+    sort(b, pb);
+
+    int *p1 = l + (endOfA -1), *p2 = r - 1, *p3 = pb - 1;
+
+    while(p1 - l >= 0 && p3 - b >= 0)
+    {
+        if(*p1 < *p3)
+        {
+            *p2 = *p3;
+            p3--;
+        }
+        else
+        {
+            *p2 = *p1;
+            p1--;
+        }
+
+        p2--;
+    }
+
+    while(p1 - l >= 0)
+    {
+        *p2 = *p1;
+        p2--;
+        p1--;
+    }
+
+    while(p3 - b >= 0)
+    {
+        *p2 = *p3;
+        p2--;
+        p3--;
+    }
+
+    return;
+}
+
+/*void fallenChildSort(vector<int> &a)
+{
+    /*cout<<"first : "<<endl;
+    for(auto &fe: a)
+    {
+        cout<<fe<<' ';
+    }
+    cout<<endl;
+
     if(a.size() <= 1)
     {
         return;
@@ -74,9 +175,9 @@ void sort(vector<int> &a)
 
     int endOfA = a.size() -1;
 
-    for(int r = a.size()-1, i = a.size()-2 ; i>=0; i--)
+    for(int r =0 , i = 1; i < a.size(); i++)
     {
-        if(a[i] > a[r])
+        if(a[r] > a[i])
         {
             b.pb(a[i]);
             a[i] = NULL;
@@ -93,6 +194,13 @@ void sort(vector<int> &a)
     {
         return;
     }
+
+    /*cout<<"second : "<<endl;
+    for(auto &fe: a)
+    {
+        cout<<fe<<' ';
+    }
+    cout<<endl;*
 
     for(int l=0, r=0;l<=endOfA;)
     {
@@ -114,6 +222,14 @@ void sort(vector<int> &a)
             l++, r++;
         }
     }
+
+    /*cout<<"third : "<<endl;
+    for(auto &fe: a)
+    {
+        cout<<fe<<' ';
+    }
+    cout<<endl;*
+
 
     sort(b);
 
@@ -147,8 +263,20 @@ void sort(vector<int> &a)
         }
     }
 
+    /*cout<<"fourth : "<<endl;
+    for(auto &fe: a)
+    {
+        cout<<fe<<' ';
+    }
+    cout<<endl;*
+
+
     return;
-}
+}*/
+
+int A[1000001];
+
+//int A[] = {-1, -2, 3, 15, -6, 4, 1, 2, 3, 49, -87, 4, 13};
 
 int main()
 {
@@ -157,25 +285,32 @@ int main()
     int n;
     cin>>n;
 
-    vector<int> temp(n);
-    for(int i=0;i<temp.size();i++)
+    for(int i=1;i<=n;i++)
     {
-        cin>>temp[i];
+        cin>>A[i];
     }
-    /*for(int i=0;i<temp.size();i++)
+
+    //int n = sizeof(A) / sizeof(A[0]);
+
+    fallenChildSort(A+1, A + n+1);
+
+    //sort(A, A+n);
+
+    /*for(int i=0;i<n;i++)
     {
-        cout<<temp[i]<<" ";
-    }
-    cout<<endl;*/
-
-    //sort(temp.begin(), temp.end());
-
-    sort(temp);
-
-    /*for(int i=0;i<temp.size();i++)
-    {
-        cout<<temp[i]<<" ";
+        cout<<A[i]<<' ';
     }*/
+
+    for(int i=1;i<=n-1;i++)
+    {
+        if(A[i] > A[i+1])
+        {
+            cout<<"Not Valid";
+            return 0;
+        }
+    }
+
+    cout<<"It's OK";
 
     return 0;
 }
